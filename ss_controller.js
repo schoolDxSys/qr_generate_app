@@ -1,8 +1,8 @@
-const SS_ID = "1vb8vN0QSsBK0tUtQx6oEVMT6qxYYsSNo18aE5f8Kwn8";
+const SS_ID = PropertiesService.getScriptProperties().getProperty("SS_ID");
 
-const subject_ss = SpreadSheetsSQL.open(SS_ID, "subject");
-const attend_ss = SpreadSheetsSQL.open(SS_ID, "attend");
-const onetime_ss = SpreadSheetsSQL.open(SS_ID, "onetime");
+const subject_ss = SpreadsheetSQL.open(SS_ID, "subject");
+const attend_ss = SpreadsheetSQL.open(SS_ID, "attend");
+const onetime_ss = SpreadsheetSQL.open(SS_ID, "onetime");
 
 function subject_controller(contents) {
   let subject = contents.Subject;
@@ -14,7 +14,7 @@ function subject_controller(contents) {
   };
 
   let result = subject_ss.insertRows([
-    { subjectName: subject, serial: create_serial(), date: get_time() },
+    { Subject: subject, Time: time, Serial: create_serial(), date: get_time() },
   ]);
 
   return result;
@@ -22,7 +22,7 @@ function subject_controller(contents) {
 
 function attend_controller(contents) {
   let userID = contents.userID;
-  let serial = contents.serial;
+  let serial = contents.Serial;
   let time = contents.Time;
 
   let result = attend_ss.insertRows([
